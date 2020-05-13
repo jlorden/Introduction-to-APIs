@@ -7,7 +7,7 @@ function App() {
   const [show, setShowPokemon] = useState(false);
   
   useEffect(() => {
-      fetch("https://pokeapi.co/api/v2/pokemon/?limit=150")
+      fetch("https://pokeapi.co/api/v2/pokemon/?limit=807")
         .then(res => res.json())
         .then(res => setPokemon(res.results))
     }, []);
@@ -29,15 +29,15 @@ function App() {
         {
           show === true ?
             pokemon.length > 0 && pokemon.map((poke, index, ability, id) => {
-              return (<div className="m2" key={index}>{poke.name}</div>)
+              return (<li className="m2" key={index}>{poke.name}</li>)
             })
             :
             <div className="m-4">
               <p className="m-2"></p>
             </div>
         }
-        </div>
       </div>
+  </div>
   );
 }
 
