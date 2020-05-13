@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from 'axios';
 import './App.css';
 
 function App() {
@@ -7,10 +8,11 @@ function App() {
   const [show, setShowPokemon] = useState(false);
   
   useEffect(() => {
-      fetch("https://pokeapi.co/api/v2/pokemon/?limit=807")
-        .then(res => res.json())
-        .then(res => setPokemon(res.results))
-    }, []);
+    if (show) {
+      axios.get("https://pokeapi.co/api/v2/pokemon/?limit=807")
+        .then(res => {setPokemon(res.data.results)})
+    }
+  }, [show]);
   
     const showPoke = (e) => {
       show === false ? setShowPokemon(true) : setShowPokemon(false);
@@ -28,7 +30,7 @@ function App() {
       <div>
         {
           show === true ?
-            pokemon.length > 0 && pokemon.map((poke, index, ability, id) => {
+            pokemon.length > 0 && pokemon.map((poke, index) => {
               return (<li className="m2" key={index}>{poke.name}</li>)
             })
             :
